@@ -8,6 +8,7 @@ const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPag
 const ClientsPage = lazy(() => import('@/features/clients/pages/ClientsPage'));
 const ClientDetailPage = lazy(() => import('@/features/clients/pages/ClientDetailPage'));
 const ProjectsPage = lazy(() => import('@/features/projects/pages/ProjectsPage'));
+const ProjectDetailPage = lazy(() => import('@/features/projects/pages/ProjectDetailPage'));
 const ContractsPage = lazy(() => import('@/features/contracts/pages/ContractsPage'));
 const ChargesPage = lazy(() => import('@/features/charges/pages/ChargesPage'));
 const TransactionsPage = lazy(() => import('@/features/transactions/pages/TransactionsPage'));
@@ -37,6 +38,7 @@ export function AppRouter() {
           <Route path="/clientes" element={<ClientsPage />} />
           <Route path="/clientes/:id" element={<ClientDetailPage />} />
           <Route path="/projetos" element={<ProjectsPage />} />
+          <Route path="/projetos/:id" element={<ProjectDetailPage />} />
           <Route path="/mensalidades" element={<ContractsPage />} />
           <Route path="/cobrancas" element={<ChargesPage />} />
           <Route path="/financeiro" element={<TransactionsPage />} />

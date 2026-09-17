@@ -14,9 +14,19 @@ export function todayISO(): string {
  * Colunas `date` do Postgres não têm fuso — interpretamos "yyyy-MM-dd" como
  * data de calendário local, sem conversão de fuso, para não deslocar o dia.
  */
-function parseDateOnly(value: string): Date {
+export function parseDateOnly(value: string): Date {
   const [year, month, day] = value.split('-').map(Number) as [number, number, number];
   return new Date(year, month - 1, day);
+}
+
+/** Formata uma Date de calendário local de volta para "yyyy-MM-dd". */
+export function toISODateOnly(date: Date): string {
+  return format(date, 'yyyy-MM-dd');
+}
+
+/** Data de hoje como calendário local "yyyy-MM-dd" (sem hora), para comparações de status. */
+export function todayDateOnly(): Date {
+  return parseDateOnly(todayISO());
 }
 
 export function formatDate(value: string | null | undefined): string {

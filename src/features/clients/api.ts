@@ -41,6 +41,18 @@ export async function listClients({ page, search, status }: ListClientsParams): 
   return { items: data ?? [], total: count ?? 0 };
 }
 
+export interface ClientOption {
+  id: string;
+  name: string;
+}
+
+/** Lista enxuta para preencher selects de cliente em outros formulários (projetos, contratos). */
+export async function listClientsForSelect(): Promise<ClientOption[]> {
+  const { data, error } = await supabase.from('clients').select('id, name').order('name').limit(500);
+  if (error) throw error;
+  return data ?? [];
+}
+
 export async function getClient(id: string): Promise<ClientDetail> {
   const { data, error } = await supabase.from('v_clients').select('*').eq('id', id).single();
   if (error) throw error;

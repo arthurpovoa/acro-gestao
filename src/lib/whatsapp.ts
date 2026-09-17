@@ -16,3 +16,21 @@ export function buildWhatsAppLink(
   const base = `https://wa.me/${digits}`;
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
+
+/**
+ * Substitui os placeholders {chave} do modelo. Quando {nome} está vazio, remove
+ * a vírgula solta que sobraria ("Olá {nome}, tudo bem?" -> "Olá, tudo bem?").
+ */
+export function fillTemplate(template: string, placeholders: Record<string, string | undefined>): string {
+  let result = template;
+
+  if (!placeholders.nome) {
+    result = result.replace(/\s*\{nome\}\s*,/g, ',');
+  }
+
+  for (const [key, value] of Object.entries(placeholders)) {
+    result = result.replaceAll(`{${key}}`, value ?? '');
+  }
+
+  return result;
+}

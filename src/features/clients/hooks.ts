@@ -10,6 +10,14 @@ export function useClients(params: ListClientsParams) {
   });
 }
 
+export function useClientsForSelect() {
+  return useQuery({
+    queryKey: ['clients', 'select-options'],
+    queryFn: api.listClientsForSelect,
+    staleTime: 5 * 60_000,
+  });
+}
+
 export function useClient(id: string | undefined) {
   return useQuery({
     queryKey: ['client', id],

@@ -382,6 +382,7 @@ export type Database = {
           amount: number | null
           client_id: string | null
           client_name: string | null
+          contact_name: string | null
           description: string | null
           dias_atraso: number | null
           due_date: string | null
