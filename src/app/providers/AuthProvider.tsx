@@ -15,6 +15,8 @@ interface AuthContextValue {
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<{ error: string | null }>;
+  updatePassword: (password: string) => Promise<{ error: string | null }>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -47,6 +49,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       },
       signOut: async () => {
         await supabase.auth.signOut();
+      },
+      requestPasswordReset: async (email: string) => {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/redefinir-senha`,
+        });
+        return { error: error ? 'Não foi possível enviar o e-mail de redefinição.' : null };
+      },
+      updatePassword: async (password: string) => {
+        const { error } = await supabase.auth.updateUser({ password });
+        return { error: error ? 'Não foi possível atualizar a senha.' : null };
       },
     }),
     [session, loading],

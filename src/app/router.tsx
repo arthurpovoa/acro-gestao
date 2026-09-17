@@ -4,6 +4,7 @@ import { AppLayout } from '@/app/layout/AppLayout';
 import { ProtectedRoute } from '@/app/ProtectedRoute';
 
 const LoginPage = lazy(() => import('@/features/auth/pages/LoginPage'));
+const ResetPasswordPage = lazy(() => import('@/features/auth/pages/ResetPasswordPage'));
 const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'));
 const ClientsPage = lazy(() => import('@/features/clients/pages/ClientsPage'));
 const ClientDetailPage = lazy(() => import('@/features/clients/pages/ClientDetailPage'));
@@ -27,6 +28,7 @@ export function AppRouter() {
     <Suspense fallback={<PageFallback />}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/redefinir-senha" element={<ResetPasswordPage />} />
         <Route
           element={
             <ProtectedRoute>
