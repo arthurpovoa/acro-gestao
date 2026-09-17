@@ -472,6 +472,7 @@ export type Database = {
         Row: {
           client_id: string | null
           client_name: string | null
+          contact_name: string | null
           due_day: number | null
           end_date: string | null
           id: string | null

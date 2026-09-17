@@ -327,7 +327,7 @@ export default function ProjectDetailPage() {
       {isDeleteOpen && (
         <ConfirmDialog
           title="Excluir projeto"
-          description={`Tem certeza que deseja excluir "${project.name}"? Essa ação não pode ser desfeita.`}
+          description={`Tem certeza que deseja excluir "${project.name}"? As cobranças lançadas neste projeto também serão excluídas. Essa ação não pode ser desfeita.`}
           confirmLabel="Excluir"
           isLoading={deleteProject.isPending}
           onConfirm={handleDelete}

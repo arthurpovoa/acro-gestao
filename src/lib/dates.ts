@@ -29,6 +29,17 @@ export function todayDateOnly(): Date {
   return parseDateOnly(todayISO());
 }
 
+/**
+ * Data de vencimento de um mês/ano para um due_day — espelha
+ * public.f_month_due_date do SQL. Se o mês não tiver esse dia
+ * (ex.: due_day 31 em fevereiro), usa o último dia do mês.
+ */
+export function getMonthDueDate(year: number, month: number, dueDay: number): string {
+  const lastDayOfMonth = new Date(year, month, 0).getDate();
+  const day = Math.min(dueDay, lastDayOfMonth);
+  return toISODateOnly(new Date(year, month - 1, day));
+}
+
 export function formatDate(value: string | null | undefined): string {
   if (!value) return '—';
   return format(parseDateOnly(value), 'dd/MM/yyyy', { locale: ptBR });
