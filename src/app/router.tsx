@@ -6,6 +6,7 @@ import { ProtectedRoute } from '@/app/ProtectedRoute';
 const LoginPage = lazy(() => import('@/features/auth/pages/LoginPage'));
 const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'));
 const ClientsPage = lazy(() => import('@/features/clients/pages/ClientsPage'));
+const ClientDetailPage = lazy(() => import('@/features/clients/pages/ClientDetailPage'));
 const ProjectsPage = lazy(() => import('@/features/projects/pages/ProjectsPage'));
 const ContractsPage = lazy(() => import('@/features/contracts/pages/ContractsPage'));
 const ChargesPage = lazy(() => import('@/features/charges/pages/ChargesPage'));
@@ -34,6 +35,7 @@ export function AppRouter() {
         >
           <Route path="/painel" element={<DashboardPage />} />
           <Route path="/clientes" element={<ClientsPage />} />
+          <Route path="/clientes/:id" element={<ClientDetailPage />} />
           <Route path="/projetos" element={<ProjectsPage />} />
           <Route path="/mensalidades" element={<ContractsPage />} />
           <Route path="/cobrancas" element={<ChargesPage />} />
