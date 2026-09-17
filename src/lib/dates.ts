@@ -50,3 +50,18 @@ export function formatMonthYear(value: string | null | undefined): string {
   const label = format(parseDateOnly(value), 'MMMM/yyyy', { locale: ptBR });
   return label.charAt(0).toUpperCase() + label.slice(1);
 }
+
+export const monthNamesShort = [
+  'Jan',
+  'Fev',
+  'Mar',
+  'Abr',
+  'Mai',
+  'Jun',
+  'Jul',
+  'Ago',
+  'Set',
+  'Out',
+  'Nov',
+  'Dez',
+];

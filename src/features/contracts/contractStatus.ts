@@ -12,17 +12,4 @@ export const contractSituacaoTone: Record<ContractSituacao, 'pago' | 'atencao' |
   encerrado: 'inativo',
 };
 
-export const monthNamesShort = [
-  'Jan',
-  'Fev',
-  'Mar',
-  'Abr',
-  'Mai',
-  'Jun',
-  'Jul',
-  'Ago',
-  'Set',
-  'Out',
-  'Nov',
-  'Dez',
-];
+export { monthNamesShort } from '@/lib/dates';
