@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { useClientsForSelect } from '@/features/clients/hooks';
+import { asStringList } from '@/features/settings/api';
+import { useSettings } from '@/features/settings/hooks';
 
 const contractFormSchema = z.object({
   client_id: z.string().min(1, 'Selecione um cliente.'),
@@ -43,6 +45,8 @@ interface ContractFormProps {
 
 export function ContractForm({ defaultValues, isSubmitting, onSubmit, onCancel }: ContractFormProps) {
   const { data: clients, isLoading: isLoadingClients } = useClientsForSelect();
+  const { data: settings } = useSettings();
+  const servicosRecorrentes = asStringList(settings?.servicos_recorrentes);
   const {
     register,
     handleSubmit,
@@ -70,7 +74,12 @@ export function ContractForm({ defaultValues, isSubmitting, onSubmit, onCancel }
           </option>
         ))}
       </Select>
-      <Input label="Serviço" placeholder="Ex.: SEO local" {...register('service')} />
+      <Input label="Serviço" placeholder="Ex.: SEO local" list="servicos-recorrentes" {...register('service')} />
+      <datalist id="servicos-recorrentes">
+        {servicosRecorrentes.map((s) => (
+          <option key={s} value={s} />
+        ))}
+      </datalist>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input
           label="Valor mensal (R$) *"

@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { useClientsForSelect } from '@/features/clients/hooks';
+import { asStringList } from '@/features/settings/api';
+import { useSettings } from '@/features/settings/hooks';
 import { billingTypeLabels, projectStatusLabels, projectStatusOptions } from '../projectStatus';
 
 const projectFormSchema = z.object({
@@ -45,6 +47,8 @@ interface ProjectFormProps {
 
 export function ProjectForm({ defaultValues, isSubmitting, onSubmit, onCancel }: ProjectFormProps) {
   const { data: clients, isLoading: isLoadingClients } = useClientsForSelect();
+  const { data: settings } = useSettings();
+  const servicosAvulsos = asStringList(settings?.servicos_avulsos);
   const {
     register,
     handleSubmit,
@@ -75,7 +79,12 @@ export function ProjectForm({ defaultValues, isSubmitting, onSubmit, onCancel }:
         ))}
       </Select>
       <Input label="Nome do projeto *" error={errors.name?.message} {...register('name')} />
-      <Input label="Serviço" placeholder="Ex.: Site institucional" {...register('service')} />
+      <Input label="Serviço" placeholder="Ex.: Site institucional" list="servicos-avulsos" {...register('service')} />
+      <datalist id="servicos-avulsos">
+        {servicosAvulsos.map((s) => (
+          <option key={s} value={s} />
+        ))}
+      </datalist>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Select label="Cobrança" {...register('billing_type')}>
           {(Object.keys(billingTypeLabels) as Array<keyof typeof billingTypeLabels>).map((key) => (

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { useProjectsForSelect } from '@/features/projects/hooks';
+import { PaymentMethodField } from '@/features/settings/components/PaymentMethodField';
 
 const chargeFormSchema = z.object({
   project_id: z.string().min(1, 'Selecione um projeto.'),
@@ -88,7 +89,7 @@ export function ChargeForm({ defaultValues, fixedProjectId, isSubmitting, onSubm
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Input label="Pago em" type="date" {...register('paid_at')} />
-        <Input label="Forma de pagamento" placeholder="Pix, cartão..." {...register('payment_method')} />
+        <PaymentMethodField {...register('payment_method')} />
       </div>
       <div className="mt-2 flex justify-end gap-3">
         <Button type="button" variant="secondary" onClick={onCancel}>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import { PaymentMethodField } from '@/features/settings/components/PaymentMethodField';
 import { todayISO } from '@/lib/dates';
 
 interface MarkAsPaidDialogProps {
@@ -30,12 +31,7 @@ export function MarkAsPaidDialog({ isLoading, onConfirm, onCancel }: MarkAsPaidD
           onChange={(e) => setPaidAt(e.target.value)}
           required
         />
-        <Input
-          label="Forma de pagamento"
-          placeholder="Pix, cartão..."
-          value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value)}
-        />
+        <PaymentMethodField value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
         <div className="mt-2 flex justify-end gap-3">
           <Button type="button" variant="secondary" onClick={onCancel}>
             Cancelar

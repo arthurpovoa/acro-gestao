@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useToast } from '@/components/ui/Toast';
+import { PaymentMethodField } from '@/features/settings/components/PaymentMethodField';
 import { formatCurrency } from '@/lib/format';
 import { formatDate, formatMonthYear, todayISO } from '@/lib/dates';
 import {
@@ -183,12 +184,7 @@ function PaymentAddForm({
           required
         />
         <Input label="Pago em" type="date" value={paidAt} onChange={(e) => setPaidAt(e.target.value)} required />
-        <Input
-          label="Forma de pagamento"
-          placeholder="Pix, cartão..."
-          value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value)}
-        />
+        <PaymentMethodField value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
       </div>
       <div className="flex justify-end gap-3">
         <Button type="button" variant="secondary" onClick={onCancel}>
@@ -229,11 +225,7 @@ function PaymentEditRow({
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
           <Input label="Valor (R$)" type="number" step="0.01" min="0" value={amount} onChange={(e) => setAmount(e.target.value)} required />
           <Input label="Pago em" type="date" value={paidAt} onChange={(e) => setPaidAt(e.target.value)} required />
-          <Input
-            label="Forma de pagamento"
-            value={paymentMethod}
-            onChange={(e) => setPaymentMethod(e.target.value)}
-          />
+          <PaymentMethodField value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} />
         </div>
         <div className="flex justify-end gap-2">
           <Button type="button" variant="secondary" onClick={onCancel} className="px-3 py-1.5 text-xs">

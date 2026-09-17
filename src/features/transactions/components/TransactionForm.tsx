@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { todayISO } from '@/lib/dates';
+import { asStringList } from '@/features/settings/api';
+import { useSettings } from '@/features/settings/hooks';
+import { PaymentMethodField } from '@/features/settings/components/PaymentMethodField';
 import { useDistinctCategories } from '../hooks';
 import { transactionTypeLabels, transactionTypeOptions } from '../transactionStatus';
 
@@ -41,7 +44,9 @@ interface TransactionFormProps {
 }
 
 export function TransactionForm({ defaultValues, isSubmitting, onSubmit, onCancel }: TransactionFormProps) {
-  const { data: categories } = useDistinctCategories();
+  const { data: usedCategories } = useDistinctCategories();
+  const { data: settings } = useSettings();
+  const categories = Array.from(new Set([...asStringList(settings?.categorias), ...(usedCategories ?? [])])).sort();
   const {
     register,
     handleSubmit,
@@ -83,10 +88,10 @@ export function TransactionForm({ defaultValues, isSubmitting, onSubmit, onCance
         />
         <Input label="Categoria" placeholder="Ex.: Software, Marketing..." list="transaction-categories" {...register('category')} />
         <datalist id="transaction-categories">
-          {categories?.map((category) => <option key={category} value={category} />)}
+          {categories.map((category) => <option key={category} value={category} />)}
         </datalist>
       </div>
-      <Input label="Forma de pagamento" placeholder="Pix, cartão..." {...register('payment_method')} />
+      <PaymentMethodField {...register('payment_method')} />
       <label className="flex flex-col gap-1.5 text-sm font-medium text-gray-700 dark:text-gray-200">
         Observações
         <textarea
